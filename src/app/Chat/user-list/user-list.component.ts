@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/Service/user.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class UserListComponent implements OnInit {
   getUserList() {
     const data = JSON.parse(localStorage.getItem("registerUser") as any);
     const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUserDetail") as any);
-    this.userList = data.filter((result:any) => result.username !== loggedInUser[0].username); 
+    this.userList = data.filter((result:User) => result.userName !== loggedInUser[0].userName); 
   }
 
 }

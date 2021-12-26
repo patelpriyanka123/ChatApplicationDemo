@@ -34,7 +34,7 @@ export class ChatHistoryComponent implements OnInit {
   }
 
   getUserMessages() {
-   this.messageList = JSON.parse(localStorage.getItem("messageData") as any);
+   this.messageList = JSON.parse(localStorage.getItem("messageData") as any) || [];
    this.messageList = this.messageList.filter((x)=>(x.senderId== this.userData.userId && x.receiverId== this.loggedInUser[0].userId) || (x.receiverId== this.userData.userId && x.senderId== this.loggedInUser[0].userId))  
   }
 

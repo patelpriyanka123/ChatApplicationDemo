@@ -4,18 +4,18 @@
         <div class="card-body">
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="userName">Username</label>
                     <div class="input-group h-100 col-sm-7 mb-0">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                             </span>
                         </div>
-                        <input type="text" formControlName="username" class="form-control"
-                            id="username" name="username"
-                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" maxlength="10"/>
-                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                            <div *ngIf="f.username.errors.required">Username is required</div>
+                        <input type="text" formControlName="userName" class="form-control"
+                            id="userName" name="userName"
+                            [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" maxlength="10"/>
+                        <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                            <div *ngIf="f.userName.errors.required">Username is required</div>
                         </div>
                     </div>
                 </div>

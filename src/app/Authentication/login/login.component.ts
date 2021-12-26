@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/model/user'
 import swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.maxLength(10)]],
+      userName: ['', [Validators.required, Validators.maxLength(10)]],
       password: ['', Validators.required]
     })
   }
@@ -48,10 +49,10 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.controls) {
       return;
     } else {
-      const userName = this.loginForm.controls.username.value;
+      const userName = this.loginForm.controls.userName.value;
       const password = this.loginForm.controls.password.value;
-      const data = JSON.parse(localStorage.getItem("registerUser") as any) ;
-      const user = data.filter((result: any) => result.username === userName && result.password === password)
+      const data = JSON.parse(localStorage.getItem("registerUser") as any) || [];
+      const user = data.filter((result: User) => result.userName === userName && result.password === password)
       if(user.length > 0 ) {
         this.loading = false;
         user[0].isLoggedIn = true;
