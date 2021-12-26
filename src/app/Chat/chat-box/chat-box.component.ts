@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/Service/user.service';
 
 @Component({
   selector: 'app-chat-box',
@@ -6,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat-box.component.scss']
 })
 export class ChatBoxComponent implements OnInit {
-  constructor() { }
+  userDetail = this.user.usernameSource.asObservable();
+  userData: any;
+
+  constructor(private user: UserService) { }
 
   ngOnInit(): void {
+    this.userDetail.subscribe((obj) => {
+      this.userData = obj;
+    })
   }
 
 
