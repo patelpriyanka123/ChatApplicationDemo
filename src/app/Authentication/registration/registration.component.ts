@@ -13,6 +13,7 @@ export class RegistrationComponent implements OnInit {
   userList: Array<User> = [];
   loading = false;
   submitted = false;
+  fieldTextType = false;
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -28,6 +29,10 @@ export class RegistrationComponent implements OnInit {
     return this.registerForm.controls;
   }
 
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
+
   onSubmit() {
     this.submitted = true;
     this.loading = true;
@@ -39,10 +44,10 @@ export class RegistrationComponent implements OnInit {
       })
     }
     if (!this.registerForm.valid) {
+      this.loading = false;
       return;
     } else {
         let userData = new User();
-        let counter = 0;
         this.userList = JSON.parse(localStorage.getItem('registerUser')as any) || [];
         const userIdList = this.userList.map((x) => x.userId) as Array<number>;
         var max = userIdList.reduce(function(a, b) {

@@ -37,22 +37,14 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.loading = true;
-    const data = this.loginForm.getRawValue();
-    if (!this.loginForm.valid || !this.loginForm.dirty) {
-      Object.keys(this.loginForm.controls).map(r => {
-        this.loginForm.controls[r].markAsDirty();
-        this.loginForm.controls[r].markAsTouched();
-        this.loginForm.controls[r].updateValueAndValidity();
-      })
-    }
-
     if (!this.loginForm.controls) {
+      this.loading = false;
       return;
     } else {
       const userName = this.loginForm.controls.userName.value;
       const password = this.loginForm.controls.password.value;
       const data = JSON.parse(localStorage.getItem("registerUser") as any) || [];
-      const user = data.filter((result: User) => result.userName === userName && result.password === password)
+      const user = data.filter((result: User) => result.userName === userName && result.password === password);
       if(user.length > 0 ) {
         this.loading = false;
         user[0].isLoggedIn = true;
@@ -60,10 +52,12 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('loggedInUserDetail', JSON.stringify(user));
         this.router.navigate(['/chat-box']);
       } else {
-        this.loading = false;
-        alert("Invalid username or password");
+        swal({
+          title: 'Invalid username or password!',
+          type: 'error'
+        });
+        this.loading = false;       
       }      
     }
   }
-
 }

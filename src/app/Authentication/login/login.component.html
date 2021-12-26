@@ -27,7 +27,7 @@
                             [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                         <div id="pwdShowHide" class="input-group-append" (click)="toggleFieldTextType()">
                             <span class="input-group-text">
-                                <i [ngClass]="{ 'fa fa-eye-slash': !fieldTextType, 'fa fa-eye': fieldTextType }"
+                                <i [ngClass]="!fieldTextType ? 'fa fa-eye-slash': 'fa fa-eye'"
                                     aria-hidden="true"></i>
                             </span>
                         </div>

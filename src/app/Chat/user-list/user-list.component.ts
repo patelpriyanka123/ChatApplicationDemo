@@ -10,6 +10,7 @@ import { UserService } from 'src/app/Service/user.service';
 export class UserListComponent implements OnInit {
   userList: any[] = [];  
   counter: number = 1;
+  loggedIn: string = '';
 
   constructor(private user: UserService ) { }
 
