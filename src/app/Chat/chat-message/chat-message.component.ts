@@ -1,0 +1,59 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SendReceiveMsg } from 'src/app/model/sendReceiveMsg';
+import { UserService } from 'src/app/Service/user.service';
+
+@Component({
+  selector: 'app-chat-message',
+  templateUrl: './chat-message.component.html',
+  styleUrls: ['./chat-message.component.scss']
+})
+export class ChatMessageComponent implements OnInit {
+  userDetail = this.user.usernameSource.asObservable();
+  sendReceiveMessage: Array<SendReceiveMsg> = [];
+  messageChatForm!: FormGroup;
+  userData: any = {};
+  submitted = false;
+  loggedInUser: any;
+
+  constructor(private user: UserService, private formBuilder: FormBuilder) { }
+  ngOnInit(): void {
+    this.messageChatForm = this.formBuilder.group({
+      message: ['', [Validators.required]],
+    });
+    this.loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUserDetail") as any);
+    this.userDetail.subscribe((obj) => {
+      this.userData = obj;
+    });
+  }
+
+  get f() {
+    return this.messageChatForm.controls;
+  }
+
+  sendMessage() {
+    this.submitted = true;
+    if (!this.messageChatForm.valid || !this.messageChatForm.dirty) {
+      Object.keys(this.messageChatForm.controls).map(r => {
+        this.messageChatForm.controls[r].markAsDirty();
+        this.messageChatForm.controls[r].markAsTouched();
+        this.messageChatForm.controls[r].updateValueAndValidity();
+      })
+    }
+    if (!this.messageChatForm.controls) {
+      return;
+    } else {
+      this.sendReceiveMessage = JSON.parse(localStorage.getItem('messageData') as any) || [];
+      let sendReceiveMsgObj = new SendReceiveMsg();
+      sendReceiveMsgObj.senderId = this.loggedInUser[0]['userId'];
+      sendReceiveMsgObj.receiverId = this.userData['userId'];
+      sendReceiveMsgObj.message = this.messageChatForm.controls.message.value;
+      sendReceiveMsgObj.datetime = new Date();
+      this.sendReceiveMessage.push(sendReceiveMsgObj);
+      localStorage.setItem('messageData', JSON.stringify(this.sendReceiveMessage));
+      this.user.messageSource.next(true);
+      this.messageChatForm.controls.message.setValue('');
+    }
+  }
+
+}
