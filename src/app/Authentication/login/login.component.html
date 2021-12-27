@@ -15,7 +15,7 @@
                             id="userName" name="userName"
                             [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" maxlength="10"/>
                         <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
-                            <div *ngIf="f.userName.errors.required">Username is required</div>
+                            <span *ngIf="f.userName.errors.required">Username is required</span>
                         </div>
                     </div>
                 </div>
@@ -33,6 +33,7 @@
                         </div>
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <span *ngIf="f.password.errors.required">Password is required</span>
+                            <span *ngIf="f.password.errors.minlength">Password must be at least 6 characters</span>
                         </div>
                     </div>
                 </div>

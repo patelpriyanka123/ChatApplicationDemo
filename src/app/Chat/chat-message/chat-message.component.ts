@@ -33,13 +33,6 @@ export class ChatMessageComponent implements OnInit {
 
   sendMessage() {
     this.submitted = true;
-    if (!this.messageChatForm.valid || !this.messageChatForm.dirty) {
-      Object.keys(this.messageChatForm.controls).map(r => {
-        this.messageChatForm.controls[r].markAsDirty();
-        this.messageChatForm.controls[r].markAsTouched();
-        this.messageChatForm.controls[r].updateValueAndValidity();
-      })
-    }
     if (!this.messageChatForm.controls) {
       return;
     } else {

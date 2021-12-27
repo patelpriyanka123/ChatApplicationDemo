@@ -8,11 +8,15 @@ import { ChatBoxComponent } from './Chat/chat-box/chat-box.component';
 import { UserListComponent } from './Chat/user-list/user-list.component';
 import { ChatHeaderComponent } from './Chat/chat-header/chat-header.component';
 import { ChatMessageComponent } from './Chat/chat-message/chat-message.component';
+import { LoginComponent } from './Authentication/login/login.component';
+import { RegistrationComponent } from './Authentication/registration/registration.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    RegistrationComponent,
     UserListComponent,
     ChatBoxComponent,
     ChatHistoryComponent,

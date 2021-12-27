@@ -8,12 +8,12 @@ import { UserService } from 'src/app/Service/user.service';
   styleUrls: ['./chat-history.component.scss']
 })
 export class ChatHistoryComponent implements OnInit {
-  messageDetail =  this.user.messageSource.asObservable();
+  messageDetail = this.user.messageSource.asObservable();
   userDetail = this.user.usernameSource.asObservable();
-  userData : any = {};
+  userData: any = {};
   loggedInUser: any;
   messageList: Array<SendReceiveMsg> = [];
-  
+
   constructor(private user: UserService) { }
 
   ngOnInit(): void {
@@ -23,19 +23,17 @@ export class ChatHistoryComponent implements OnInit {
       this.getUserMessages();
     });
     this.messageDetail.subscribe((isNewMessage) => {
-      if(isNewMessage) {
+      if (isNewMessage) {
         this.getUserMessages();
-      }     
+      }
     });
-   // this.getUserMessages();
     window.addEventListener('storage', () => {
       this.getUserMessages();
     });
   }
 
   getUserMessages() {
-   this.messageList = JSON.parse(localStorage.getItem("messageData") as any) || [];
-   this.messageList = this.messageList.filter((x)=>(x.senderId== this.userData.userId && x.receiverId== this.loggedInUser[0].userId) || (x.receiverId== this.userData.userId && x.senderId== this.loggedInUser[0].userId))  
+    this.messageList = JSON.parse(localStorage.getItem("messageData") as any) || [];
+    this.messageList = this.messageList.filter((x) => (x.senderId == this.userData.userId && x.receiverId == this.loggedInUser[0].userId) || (x.receiverId == this.userData.userId && x.senderId == this.loggedInUser[0].userId))
   }
-
 }

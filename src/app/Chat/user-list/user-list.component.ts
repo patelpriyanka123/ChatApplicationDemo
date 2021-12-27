@@ -26,7 +26,7 @@ export class UserListComponent implements OnInit {
   }
 
   getUserList() {
-    const data = JSON.parse(localStorage.getItem("registerUser") as any);
+    const data = JSON.parse(localStorage.getItem("registerUser") as any) || [];
     const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUserDetail") as any);
     this.userList = data.filter((result:User) => result.userName !== loggedInUser[0].userName); 
   }

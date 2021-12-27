@@ -17,6 +17,4 @@ export class ChatBoxComponent implements OnInit {
       this.userData = obj;
     })
   }
-
-
 }

@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './Authentication/login/login.component';
+import { RegistrationComponent } from './Authentication/registration/registration.component';
 import { ChatBoxComponent } from './Chat/chat-box/chat-box.component';
 
-const authenticationModule = () => import('./Authentication/authentication.module').then(x => x.AuthenticationModule);
 const routes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
   { path: 'chat-box', component: ChatBoxComponent },
-  { path: '', loadChildren: authenticationModule }
+  
 ];
 
 @NgModule({
